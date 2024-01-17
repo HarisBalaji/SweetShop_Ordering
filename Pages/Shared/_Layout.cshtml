@@ -1,0 +1,66 @@
+﻿@{
+    bool isAdmin = HttpContextAccessor.HttpContext?.Session.GetString("IsAdmin") == "true";
+    bool isUser = HttpContextAccessor.HttpContext?.Session.GetString("IsUser") == "true";
+    bool isLogged = HttpContextAccessor.HttpContext?.Session.GetString("IsLogged") == "true";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SweetStall</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/SweetStall.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-left">
+            <ul>
+                <li><a asp-page="/Index">Home</a></li>
+                <li><a asp-page="/DisplayItems">Shop</a></li> 
+                <li><a asp-page="/AddToCart">Cart</a></li>  
+                @if (isAdmin)
+                {
+                    <li><a asp-page="/UpdateCategory">Category</a></li>
+                    <li><a asp-page="/UpdateCategoryItem">Category Items</a></li>
+                }
+            </ul>
+        </div>
+        <div class="navbar-right">
+            @if (!isLogged)
+            {
+                <ul>
+                    
+                    <li><a asp-page="/SignIn">Login</a></li>
+                </ul>
+            }
+            @if (isLogged)
+            {
+                <ul>
+                    
+                    <li><a asp-page="/LogOut">LogOut</a></li>
+                </ul>
+            }
+        </div>
+    </nav>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    @* <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - SweetStall - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer> *@
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

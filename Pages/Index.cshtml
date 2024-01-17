@@ -1,0 +1,48 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Teko:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lobster&family=Roboto+Mono:ital@1&family=Teko:wght@500&display=swap" rel="stylesheet">
+<div class="slider-container">
+    <div class="slider">
+        <div class="slide slide-1">
+            <div class="text-container animated-text">
+                <h2> Sweet Moments,</h2>
+                <h2> One Bite at a Time</h2>
+                <p>Taste the joy in every bite</p>
+                <p> of our desserts</p>
+            </div>
+            <img src="~/images/img5ii.jpg" alt="Slide 1">
+        </div>
+        <div class="slide slide-2">
+            <div class="text-container animated-text">
+                <h2>Taste the Sweet Magic</h2>
+                <p>A variety of flavors to make</p>
+                <p>your day sweeter</p>
+            </div>
+            <img src="~/images/img6.jpg" alt="Slide 2">
+        </div>
+        <div class="slide slide-3">
+            <div class="text-container animated-text">
+                <h2>Savory Bliss: Where Flavor Meets</h2>
+                <h2> Crunch in Every Bite!</h2>
+                <p>Delicious bites that pack a punch of flavor and crunch.</p>
+            </div>
+            <img src="~/images/img7i.jpg" alt="Slide 3">
+        </div>
+    </div>
+    <div class="dots-container">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/slide.js"></script>
+}

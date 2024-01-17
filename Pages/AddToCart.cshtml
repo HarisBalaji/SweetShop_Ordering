@@ -1,0 +1,91 @@
+﻿@page
+@model SweetStall.Pages.AddToCartModel
+@{
+    bool isLogged = HttpContextAccessor.HttpContext?.Session.GetString("IsLogged") == "true";
+}
+
+@* <form method="post" asp-page-handler="OrderConfirmation">
+    <button type="submit" class="btn btn-primary" style="margin-top: 30px; position:absolute; top: 30px; right:400px;">
+        Confirm Order
+    </button>
+</form> *@
+
+@if (isLogged)
+{
+    @if (Model.ShoppingCartItems.Any())
+    {
+        <h4 style="text-align:center;margin-top:10px;">My Cart</h4>
+        <table class="table" style="margin: auto;margin-top: 30px;width:60%">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Quantity(in gms)</th>
+                    <th>Calc. Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ShoppingCartItems)
+                {
+                        <tr>
+                            <td>@item.ItemName</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.FinalPrice</td>
+                            <td>
+                                <form method="post" asp-page-handler="RemoveItem">
+                                    <input type="hidden" name="ItemId" value="@item.ItemId" />
+                                    <button type="submit" class="btn btn-danger">Remove</button>
+                                </form>
+                            </td>
+                        </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p style="text-align:center; font-size: 30px; margin-top: 40px; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
+            Your shopping cart is empty.</p>
+    }
+}
+else
+{
+    @if (AddToCartModel.CartItems?.Count!=0)
+    {
+        <h4 style="text-align:center;margin-top:10px;">My Cart</h4>
+        <p style="margin-left: 45%;font-size:20px;">Login first to save progress.</p>
+        <table class="table" style="margin: auto;margin-top: 30px;width: 60%">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Quantity(in gms)</th>
+                    <th>Calc. Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (var i = 0; i < AddToCartModel.CartItems?.Count; i++)
+                {
+                    var item = AddToCartModel.CartItems[i];
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.FinalPrice</td>
+                        <td>
+                            <form method="post" asp-page-handler="RemoveItemFromList">
+                                <input type="hidden" name="ItemIndex" value="@i" />
+                                <button type="submit" class="btn btn-danger">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p style="text-align:center; font-size: 30px; margin-top: 40px; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
+            Your shopping cart is empty.
+        </p>
+    }
+}

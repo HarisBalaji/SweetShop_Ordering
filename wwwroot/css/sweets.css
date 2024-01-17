@@ -1,0 +1,157 @@
+﻿/*.sweets-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-left: 12%;
+}
+
+.sweet {
+    width: calc(33.33% - 20px);*/ /* Adjust based on your design */
+    /*margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+    transition: transform 0.3s;*/ /* Add smooth scaling transition on hover */
+    /*position: relative;
+}
+
+.sweet:hover {
+    transform: scale(1.05);*/ /* Scale up on hover */
+/*}
+
+.sweet img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 5px;*/ /* Adjust the margin as needed */
+/*}
+
+.sweet-weight,
+.sweet-name,
+.sweet-price {
+    margin-bottom: 1px;*/ /* Adjust the margin as needed */
+/*}
+
+.sweet-name {
+    font-weight: bold;
+}
+
+.sweet-price {
+    color: #007bff;*/ /* Blue color for price */
+/*}
+
+.quantity-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;*/ /* Adjust the margin as needed */
+/*}
+
+.quantity-btn,
+.add-to-cart-btn {
+    padding: 6px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.quantity-value {
+    margin: 0 5px;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #0056b3;
+}*/
+
+/*.add-to-cart-btn {
+    flex-grow: 1;
+    margin-left: 10px;*/ /* Adjust the margin as needed */
+    /*background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}*/
+
+.sweets-section {
+    display: flex;
+    flex-wrap: wrap; /* Ensure sweets wrap to the next line when there's not enough space */
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-left: 12%;
+}
+
+
+.sweet {
+    width: calc(33.33% - 20px);
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+    transition: transform 0.3s;
+    position: relative;
+}
+
+.sweet:hover {
+    transform: scale(1.05);
+}
+
+.sweet img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 5px;
+}
+
+.sweet-weight,
+.sweet-name,
+.sweet-price {
+    margin-bottom: 1px;
+}
+
+.sweet-name {
+    font-weight: bold;
+}
+
+.sweet-price {
+    color: #007bff;
+}
+
+.quantity-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.quantity-btn,
+.add-to-cart-btn {
+    padding: 6px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.quantity-value {
+    margin: 0 5px;
+}
+
+.add-to-cart-form {
+    display: flex;
+    width: 100%; /* Ensure the form spans the entire width of the container */
+}
+
+.add-to-cart-btn {
+    flex-grow: 1;
+    margin-left: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #0056b3;
+}

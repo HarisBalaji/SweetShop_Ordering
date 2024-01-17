@@ -1,0 +1,78 @@
+﻿@page
+@model SweetStall.Pages.UpdateCategoryItemModel
+@{
+    bool isAdmin = HttpContextAccessor.HttpContext?.Session.GetString("IsAdmin") == "true";
+}
+
+@if (isAdmin)
+{
+    @foreach (var category in Model.Categories)
+    {
+        <div class="category-section">
+            <h4 style="margin-left: 15%;margin-top: 10px">Category: @category.Name</h4>
+            <table class="table" style="width: 80%; margin: auto">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Price(per kg)</th>
+                        <th>Action</th>
+                        <th>ImageURL</th>
+                        <th>Current Price</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (category.Items != null)
+                    {
+                        @foreach (var item in category.Items)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.Name</td>
+                                <td>@item.Price</td>
+                                <td>
+                                    <form method="post">
+                                        <input type="hidden" name="itemId" value="@item.Id" />
+                                        <button class="btn btn-danger" asp-page-handler="RemoveCategoryItem">Remove</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.ImageUrl))
+                                    {
+                                        <img src="@item.ImageUrl" alt="@item.Name" style="width: 60px; height: 30px;" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/images/milksweet.jpeg" alt="Default Image" style="width: 60px; height: 30px;" />
+                                    }
+                                </td>
+                                <form method="post">
+                                <td><input type="number" class="form-control" id="ItemCurrPrice" name="itemCurrPrice" /></td>
+                                <td>
+
+                                    <input type="hidden" name="itemId" value="@item.Id" />
+                                    <button class="btn btn-success" asp-page-handler="UpdateCategoryItem">Update</button>
+
+                                </td>
+                                </form>
+                            </tr>
+                        }
+                    }
+                    <tr>
+                        <form method="post">
+                            <input type="hidden" name="SelectedCategoryId" value="@category.Id" />
+                        <td></td>
+                        <td><input type="text" class="form-control" id="itemname" name="itemName" /></td>
+                        <td><input type="number" class="form-control" id="itemprice" name="itemPrice" /></td>
+                        <td><button class="btn btn-success" asp-page-handler="AddCategoryItem">Add</button></td>
+                        <td><input type="text" class="form-control" id="itemimageUrl" name="itemImageUrl" /></td>
+
+                        </form>
+                    </tr>
+                </tbody>
+            </table>
+            }
+        </div>
+    }
+}

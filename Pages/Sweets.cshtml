@@ -1,0 +1,56 @@
+﻿@page
+@model SweetShop.Pages.SweetsModel
+@{
+    ViewData["Title"] = "Order Sweets";
+}
+@* 
+@{
+    var sweetIndex = 0;
+}
+
+<link rel="stylesheet" href="~/css/sweets.css">
+
+<div class="sweets-section">
+    @foreach (var sweet in Model.Sweets)
+    {
+        <div class="sweet">
+            @if (!string.IsNullOrEmpty(sweet.ImageUrl))
+            {
+                <img src="@sweet.ImageUrl" alt="@sweet.Name" style="width: 380px; height: 230px;" />
+            }
+            else
+            {
+                <img src="~/images/milksweet.jpeg" alt="Default Image" style="width: 380px; height: 230px;" />
+            }
+            <form method="post" asp-page="AddToCart" asp-page-handler="AddToCart">
+                <input type="hidden" name="name" value="@sweet.Name" />
+                <label for="weightInput_@sweet.Id">Weight (grams):</label>
+                <input type="number" id="weightInput_@sweet.Id" name="quantity" min="1" oninput="updatePrice(@sweet.Id, @sweet.Price); if (this.value < 1) this.value = '';" required style="width: 70px" />
+                <input type="hidden" name="finalPrice" id="calculatedPriceInput_@sweet.Id" value="0.00" />
+                <p class="sweet-name">@sweet.Name (@sweet.Price per kg)</p>
+                <p class="sweet-price">Price: <span id="calculatedPrice_@sweet.Id">0.00</span></p>
+                <div class="quantity-controls">                    
+                        <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </form>
+            @{
+                sweetIndex++;
+            }         
+        </div>
+    }
+</div>
+
+<script>
+    function updatePrice(savoryId, pricePerKg) {
+        const weightInput = document.getElementById('weightInput_' + savoryId);
+        const calculatedPriceElement = document.getElementById('calculatedPrice_' + savoryId);
+        const calculatedPriceInput = document.getElementById('calculatedPriceInput_' + savoryId);
+        const weight = weightInput.value;
+        const calculatedPrice = (weight * pricePerKg) / 1000; 
+        calculatedPriceElement.innerHTML = calculatedPrice.toFixed(2); 
+
+        calculatedPriceInput.value = calculatedPrice.toFixed(2); 
+    }
+</script>
+<script src="~/js/sweets.js"></script>
+ *@

@@ -1,0 +1,90 @@
+﻿@page
+@model SweetStall.Pages.DisplayItemsModel
+@{
+    ViewData["Title"] = "Order Items";
+    var sweetIndex = 0;
+}
+
+<link rel="stylesheet" href="~/css/sweets.css">
+
+<div style="text-align: right;">
+    <label for="categoryDropdown">Select Category:</label>
+    <select class="form-control" id="categoryDropdown" onchange="loadItems()" style="width: 150px; margin-left: 90%;">
+        <option value="All Categories">All Categories</option>
+        @foreach (var category in Model.Categories)
+        {
+            <option value="@category.Name">@category.Name</option>
+        }
+    </select>
+</div>
+
+<script>
+    function loadItems() {
+        var selectedCategoryName = $("#categoryDropdown").val();
+        $("#selectedCategoryName").text(selectedCategoryName);
+        displayItems(selectedCategoryName);
+    }
+</script>
+
+@foreach (var category in Model.Categories)
+{
+    <h4 style="text-align:center" class="category-title" id="categoryTitle_@category.Name">@category.Name</h4>
+    <div id="@category.Name" class="category-items sweets-section" >
+        @foreach (var item in category.Items!)
+        {
+            <div class="sweet">
+                @if (!string.IsNullOrEmpty(item.ImageUrl))
+                {
+                    <img src="@item.ImageUrl" alt="@item.Name" style="width: 380px; height: 230px;" />
+                }
+                else
+                {
+                    <img src="~/images/milksweet.jpeg" alt="Default Image" style="width: 380px; height: 230px;" />
+                }
+                <form method="post" asp-page="AddToCart" asp-page-handler="AddToCart">
+                    <input type="hidden" name="name" value="@item.Name" />
+                    <label for="weightInput_@item.Id">Weight (grams):</label>
+                    <input type="number" id="weightInput_@item.Id" name="quantity" min="1" oninput="updatePrice(@item.Id, @item.Price); if (this.value < 1) this.value = '';" required style="width: 70px" />
+                    <input type="hidden" name="finalPrice" id="calculatedPriceInput_@item.Id" value="0.00" />
+                    <p class="sweet-name">@item.Name (@item.Price per kg)</p>
+                    <p class="sweet-price">Price: <span id="calculatedPrice_@item.Id">0.00</span></p>
+                    <div class="quantity-controls">                    
+                            <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </form>
+                @{
+                    sweetIndex++;
+                }         
+            </div>
+        }
+    </div>
+}
+
+<script>
+    function displayItems(selectedCategoryName) {
+        $(".category-items").hide();
+        $(".category-title").hide();
+        if (selectedCategoryName === "All Categories") {
+            $(".category-items").show();
+            $(".category-title").show();
+        } else {
+            $("#" + selectedCategoryName).show(); 
+            //$("#categoryTitle_" + selectedCategoryName).show();
+        }
+    }
+
+    function updatePrice(itemId, pricePerKg) {
+        const weightInput = document.getElementById('weightInput_' + itemId);
+        const calculatedPriceElement = document.getElementById('calculatedPrice_' + itemId);
+        const calculatedPriceInput = document.getElementById('calculatedPriceInput_' + itemId);
+        const weight = weightInput.value;
+        const calculatedPrice = (weight * pricePerKg) / 1000;
+        calculatedPriceElement.innerHTML = calculatedPrice.toFixed(2);
+
+        calculatedPriceInput.value = calculatedPrice.toFixed(2);
+    }
+
+    $(document).ready(function () {
+        displayItems("All Categories");
+    });
+</script>
